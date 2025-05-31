@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BestMatch.AI</title>
+
+	<!-- External CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="no-js">
+	<script>document.body.classList.remove('no-js');</script>
+	<header>
+		<nav aria-label="Main Navigation">
+			<h1>BestMatch<span>.AI</span></h1>
+			<ul>
+				<li><a href="#hero">Home</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#upload-section">Try It</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Hero Section -->
+	<section id="hero" style="background: url('assets/hero-bg.jpg') center/cover no-repeat;">
+		<div class="hero-content">
+			<h2 class="animate-on-scroll">Revolutionize Your Shopping Experience</h2>
+			<p class="animate-on-scroll delay-100">AI-powered personalized product recommendations tailored
+				to your unique needs.</p>
+			<a href="#upload-section" class="btn animate-on-scroll delay-200">Get Started</a>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section id="about" class="content-section">
+		<h2 class="animate-on-scroll">About BestMatch.AI</h2>
+		<p class="animate-on-scroll delay-100">Discover how our AI-driven platform provides personalized product
+			recommendations.</p>
+		<div class="features">
+			<div class="feature animate-on-scroll delay-100">
+				<img src="assets/rocket.svg" alt="AI-Powered">
+				<h3>AI-Powered</h3>
+				<p>Advanced algorithms for real-time analysis.</p>
+			</div>
+			<div class="feature animate-on-scroll delay-200">
+				<img src="assets/shopping-cart.svg" alt="Personalized">
+				<h3>Personalized</h3>
+				<p>Tailored recommendations to fit your needs.</p>
+			</div>
+			<div class="feature animate-on-scroll delay-300">
+				<img src="assets/lock.svg" alt="Secure">
+				<h3>Secure</h3>
+				<p>Privacy-focused, no data is stored.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Try It Section -->
+	<section id="upload-section" class="content-section">
+		<h2 class="animate-on-scroll">Try It Now</h2>
+		<p class="animate-on-scroll delay-100">Let our AI analyze your features and recommend the best products
+			for you.</p>
+		<!-- Replace the existing file upload section in index.html -->
+		<form id="analysis-form" class="animate-on-scroll delay-200">
+			<div class="price-range-selector">
+				<label for="price-range">Price Range:</label>
+				<select id="price-range" class="form-select">
+					<option value="all">All Prices</option>
+					<option value="low">Low ($0-$5)</option>
+					<option value="medium">Medium ($5-$20)</option>
+					<option value="high">High ($20++)</option>
+				</select>
+			</div>
+			<div class="image-upload-container">
+				<div class="upload-section">
+					<label for="left-image">Left Side</label>
+					<input type="file" id="left-image" accept="image/*" data-position="left">
+					<div id="left-preview" class="preview-container"></div>
+				</div>
+				<div class="upload-section">
+					<label for="front-image">Front</label>
+					<input type="file" id="front-image" accept="image/*" data-position="front">
+					<div id="front-preview" class="preview-container"></div>
+				</div>
+				<div class="upload-section">
+					<label for="right-image">Right Side</label>
+					<input type="file" id="right-image" accept="image/*" data-position="right">
+					<div id="right-preview" class="preview-container"></div>
+				</div>
+			</div>
+			<div id="progress-bar-container">
+				<div id="progress-bar"></div>
+			</div>
+			<button type="submit" id="analyze-btn" class="btn">Analyze</button>
+		</form>
+		<!-- Results Section -->
+		<section id="results-section" hidden>
+			<!-- Skincare Routine Section -->
+			<section id="skincare-routine" class="routine-section" hidden>
+				<h2>Skincare Routine Based on Analysis</h2>
+				<div class="routine-container">
+					<div class="routine-block">
+						<div class="routine-content"></div>
+					</div>
+				</div>
+			</section>
+
+
+			<!-- Chat Section - Hidden by default -->
+			<section id="chat-section" hidden>
+				<div class="chat-container">
+					<h3>Chat with AI Assistant</h3>
+					<div id="chat-messages"></div>
+					<div class="chat-input-container">
+						<input type="text" id="chat-input"
+							placeholder="Ask about your skincare routine...">
+						<button id="send-message" class="btn">Send</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- Product Recommendations Section -->
+			<h2>Recommended Products</h2>
+			<div id="product-list" class="product-grid"></div>
+
+
+			<button id="reset-btn" class="btn secondary">Reset</button>
+		</section>
+	</section>
+
+
+	<!-- Contact Section -->
+	<section id="contact">
+		<div class="content-wrapper">
+			<h2 class="animate-on-scroll">Contact Us</h2>
+			<p class="animate-on-scroll delay-100">Have questions or feedback? Reach out to us!</p>
+			<form id="contact-form" class="animate-on-scroll delay-200">
+				<input type="text" id="name" placeholder="Your Name" required>
+				<input type="email" id="email" placeholder="Your Email" required>
+				<textarea id="message" placeholder="Your Message" rows="5" required></textarea>
+				<button type="submit" class="btn">Send Message</button>
+			</form>
+		</div>
+	</section>
+
+	<!-- FAQ Section -->
+	<section id="faq" class="content-section">
+		<h2 class="animate-on-scroll">Frequently Asked Questions</h2>
+		<div class="faq-item animate-on-scroll delay-100">
+			<h3>How does BestMatch.AI work?</h3>
+			<p>BestMatch.AI uses advanced AI to analyze your facial features and provide tailored product
+				recommendations.</p>
+		</div>
+		<div class="faq-item animate-on-scroll delay-200">
+			<h3>Is my data secure?</h3>
+			<p>Yes, all data processing is done on-device, and we do not store any personal data.</p>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+		<p>&copy; 2025 BestMatch.AI. All rights reserved.</p>
+	</footer>
+
+	<!-- External JS -->
+	<!--<script src="/js/main.js" type="module"></script>-->
+	<script src="/script.js" type="module"></script>
+	<script src="/chat.js" type="module"></script>
+	<script type="module">
+		import {initializeApp} from '/js/main.js';
+		import chatUI from '/chat.js';
+
+		document.addEventListener('DOMContentLoaded', () => {
+			initializeApp(chatUI);
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+BestMatch.AI API Documentation
+============================
+Base URL: http://localhost:3001/api
+
+1. Face Analysis API
+-------------------
+Endpoint: /face-analyzer/analyze
+Method: POST
+Content-Type: multipart/form-data
+Description: Analyzes facial features from multiple image angles
+
+Request Body:
+- image_left: (file, optional) Left side face image
+- image_front: (file, optional) Front face image
+- image_right: (file, optional) Right side face image
+
+Response:
+{
+    "success": true,
+    "analysis": {
+        "skin_tone": {
+            "main_tone": string,
+            "undertone": string,
+            "brightness": number
+        },
+        "concerns": {
+            "wrinkles": boolean,
+            "dark_circles": boolean,
+            "acne": boolean,
+            "pigmentation": boolean,
+            "dryness": boolean
+        }
+    }
+}
+
+Status Check:
+GET /face-analyzer/status
+Response: {
+    "status": "running",
+    "modelStatus": object
+}
+
+2. Analysis & Recommendations API
+-------------------------------
+Endpoint: /analysis-recommendation/analyze
+Method: POST
+Content-Type: multipart/form-data
+Description: Analyzes images and provides product recommendations
+
+Request Body:
+- image_left: (file, optional) Left side image
+- image_front: (file, optional) Front image
+- image_right: (file, optional) Right image
+- priceRange: (string, optional) Options: "all", "low", "medium", "high"
+
+Response:
+{
+    "success": true,
+    "type": "initial",
+    "analysis": object,
+    "recommendations": array,
+    "analysisId": string
+}
+
+Get AI Results:
+GET /analysis-recommendation/ai-results/:analysisId
+Response: {
+    "success": true,
+    "complete": boolean,
+    "routine": object,
+    "tips": string
+}
+
+Status Check:
+GET /analysis-recommendation/status
+Response: {
+    "status": string,
+    "timestamp": string
+}
+
+3. Chat API
+----------
+Endpoint: /chat/message
+Method: POST
+Content-Type: application/json
+Description: Handles chat interactions about skincare recommendations with selectable language models (Gemini, Claude, or Cohere)
+
+Request Body:
+{
+    "message": string,     // The user's message
+    "sessionId": string,   // Unique session identifier
+    "context": {
+        "routine": string, // Generated skincare routine
+        "products": array, // Recommended products
+        "tips": string    // Skincare tips
+    },
+    "llm": string         // Optional. Language model selection: "gemini" (default), "claude", or "cohere"
+}
+
+Response:
+{
+    "success": true,
+    "response": string | {    // String for normal responses, object for fallback cases
+        "fallback": boolean,  // True when Claude falls back to Gemini
+        "fallbackMessage": string,  // Fallback notification message
+        "response": string    // The actual response from fallback model
+    }
+}
+
+Error Response:
+{
+    "success": false,
+    "error": string
+}
+
+Notes:
+
+    If no LLM is specified, Gemini is used as the default
+    Claude is currently in fallback mode and will automatically switch to Gemini
+    Each LLM may have slightly different response patterns and capabilities
+    Session history is maintained separately for each session ID
+
+Example:
+// Regular chat request
+fetch('/api/chat/message', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        message: "What skincare products should I use for dry skin?",
+        sessionId: "user123",
+        context: {
+            routine: "AM\n• Cleanser\n• Moisturizer\nPM\n• Cleanser\n• Serum",
+            products: [],
+            tips: "Focus on hydration"
+        },
+        llm: "cohere"  // Optional: specify LLM
+    })
+})
+
+// Response example with fallback
+{
+    "success": true,
+    "response": {
+        "fallback": true,
+        "fallbackMessage": "Currently down, switching to Gemini",
+        "response": "For dry skin, I recommend using a gentle..."
+    }
+}
+
+// Regular response
+{
+    "success": true,
+    "response": "For dry skin, I recommend using a gentle..."
+}
+
+4. AI Service API
+---------------
+Endpoint: /ai/generate-routine
+Method: POST
+Content-Type: application/json
+Description: Generates skincare routine based on analysis
+
+Request Body:
+{
+    "analysisData": object
+}
+
+Response:
+{
+    "success": true,
+    "data": object
+}
+
+Status Check:
+GET /ai/status
+Response: {
+    "success": true,
+    "data": object
+}
+
+5. Scraper API
+-------------
+Endpoint: /scraper/scrape
+Method: POST
+Content-Type: application/json
+Description: Searches for products based on analysis
+
+Request Body:
+{
+    "analysis": object
+}
+
+Response:
+{
+    "success": true,
+    "recommendations": array,
+    "timestamp": string
+}
+
+Status Check:
+GET /scraper/status
+Response: {
+    "status": "operational",
+    "timestamp": string
+}
+
+Error Responses
+--------------
+All endpoints may return the following error responses:
+
+400 Bad Request:
+{
+    "success": false,
+    "error": "Error description"
+}
+
+500 Internal Server Error:
+{
+    "success": false,
+    "error": "Error description"
+}
+
+Notes
+-----
+1. All file uploads should be images in common formats (jpg, png, etc.)
+2. The maximum file size for uploads is determined by multer configuration
+3. The analysisId returned from the analysis endpoint should be used to poll for AI results
+4. All timestamps are in ISO 8601 format
+5. The chat service maintains context within a session for personalized responses
+6. Price range filtering is optional and defaults to "all"
+
+Rate Limiting
+------------
+No specific rate limiting is implemented, but it's recommended to:
+- Limit image uploads to 1 request per second
+- Limit chat messages to 10 requests per minute
+- Limit scraper requests to 5 requests per minute
+
+Authentication
+-------------
+Currently, no authentication is required for API access.
