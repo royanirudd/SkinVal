@@ -1,5 +1,6 @@
-# SkinVal
-# 🌿 SkinVal – AI-Powered Skin Analysis & Product Recommendation
+# SkinVal 
+live - https://skinval.vercel.app/
+# 🌿 AI-Powered Skin Analysis & Product Recommendation
 
 SkinVal is a skincare product recommending website that provides skin condition detection, and personalized product recommendations. The platform blends advanced web scraping, Retrieval-Augmented Generation (RAG) to create a truly intelligent skincare experience.
 
