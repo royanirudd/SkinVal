@@ -1,5 +1,8 @@
 # SkinVal 
 Live - https://skinval.vercel.app/
+#
+![image](https://github.com/user-attachments/assets/3bcd6228-3902-4c52-82cf-a07c8c984019)
+
 # 🌿 AI-Powered Skin Analysis & Product Recommendation
 
 SkinVal is a skincare product recommending website that provides skin condition detection, and personalized product recommendations. The platform blends advanced web scraping, Retrieval-Augmented Generation (RAG) to create a truly intelligent skincare experience.
@@ -68,6 +71,7 @@ SkinVal implements a Retrieval-Augmented Generation pipeline:
   - Firebase (Realtime Database or Firebase Auth)
 
 ---
+![image](https://github.com/user-attachments/assets/1d914f62-e3bc-4274-9195-2f54d3cc807c)
 
 ### 🎯 Skin Analysis (`script.js`, BlazeFace)
 - Supports both image upload and live webcam capture
